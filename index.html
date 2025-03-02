@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll the Dice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        input {
+            font-size: 18px;
+            text-align: center;
+            width: 60px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Click the button to roll the dice</h2>
+        <button onclick="rollDice()">Roll the Dice</button>
+        <br>
+        <input type="text" id="diceResult" readonly>
+    </div>
+    <script>
+        async function rollDice() {
+            try {
+                let response = await fetch('http://localhost:3000/api/diceroller'); // Corrected API endpoint
+                let data = await response.json();
+                document.getElementById('diceResult').value = data.roll; // Corrected response key
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('diceResult').value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
